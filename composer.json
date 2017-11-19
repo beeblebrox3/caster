@@ -1,0 +1,29 @@
+{
+    "name": "beeblebrox3/caster",
+    "description": "PHP Library to cast arrays",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Luís Henrique Faria",
+            "email": "luish.faria@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Beeblebrox3\\Caster\\": "./src"
+        }
+    },
+    "require": {
+        "php": ">= 7.0",
+        "adbario/php-dot-notation": "^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.4"
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit",
+        "test-coverage": "./vendor/bin/phpunit --coverage-html ./coverage-report --coverage-clover ./coverage-report/clover.xml"
+    }
+}

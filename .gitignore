@@ -1,0 +1,4 @@
+vendor/
+coverage-report/
+.idea/
+.vscode/
