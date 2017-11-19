@@ -15,6 +15,11 @@
             "Beeblebrox3\\Caster\\": "./src"
         }
     },
+    "autoload-dev": {
+        "classmap": [
+            "tests/OneCustomRule.php"
+        ]
+    },
     "require": {
         "php": ">= 7.0",
         "adbario/php-dot-notation": "^2.0"

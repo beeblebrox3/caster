@@ -98,4 +98,14 @@ class CasterTest extends TestCase
     {
         $this->object->cast(['a' => 'InvalidRule'], ['a' => 1]);
     }
+
+    public function testShouldWorkWithCustomRuleClass()
+    {
+        $this->object->addCustomRule('one', \OneCustomRule::class);
+
+        $this->assertEquals(
+            ['a' => 1],
+            $this->object->cast(['a' => 'one'], ['a' => 'borboleta'])
+        );
+    }
 }

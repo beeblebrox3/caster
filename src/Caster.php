@@ -3,18 +3,27 @@
 namespace Beeblebrox3\Caster;
 
 use Beeblebrox3\Caster\Rules\IRule;
+use Beeblebrox3\Caster\Exceptions\RuleNotFound;
 use Exception;
 
 class Caster
 {
     protected $cachedRules = [];
 
+    protected $customRules = [];
+
+    public function addCustomRule(string $ruleName, string $className) : self
+    {
+        $this->customRules[$ruleName] = $className;
+        return $this;
+    }
+
     /**
      * @param array $types
      * @param array $data
      * @param bool $fillWithNull
      * @return array
-     * @throws Exception
+     * @throws RuleNotFound
      */
     public function cast(array $types, array $data, bool $fillWithNull = false) : array
     {
@@ -39,7 +48,7 @@ class Caster
      * @param string $rules
      * @param $value
      * @return mixed|null
-     * @throws Exception
+     * @throws RuleNotFound
      */
     protected function handleValue(string $rules, $value)
     {
@@ -70,7 +79,7 @@ class Caster
     /**
      * @param string $ruleName
      * @return mixed
-     * @throws Exception
+     * @throws RuleNotFound
      */
     protected function getRuleObject(string $ruleName) : IRule
     {
@@ -78,7 +87,7 @@ class Caster
             $ruleQualifiedName = $this->getRuleClassName($ruleName);
 
             if (!class_exists($ruleQualifiedName)) {
-                throw new Exception($ruleName);
+                throw new RuleNotFound($ruleName, $ruleQualifiedName);
             }
 
             $this->cachedRules[$ruleName] = new $ruleQualifiedName();
@@ -89,6 +98,10 @@ class Caster
 
     protected function getRuleClassName(string $ruleName) : string
     {
+        if (isset($this->customRules[$ruleName])) {
+            return $this->customRules[$ruleName];
+        }
+
         $ruleName = explode("_", $ruleName);
         $ruleName = array_map(function ($slice) {
             return ucfirst($slice);
