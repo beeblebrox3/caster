@@ -4,7 +4,6 @@ namespace Beeblebrox3\Caster;
 
 use Beeblebrox3\Caster\Rules\IRule;
 use Beeblebrox3\Caster\Exceptions\RuleNotFound;
-use Exception;
 
 class Caster
 {
@@ -78,7 +77,7 @@ class Caster
 
     /**
      * @param string $ruleName
-     * @return mixed
+     * @return IRule
      * @throws RuleNotFound
      */
     protected function getRuleObject(string $ruleName) : IRule
