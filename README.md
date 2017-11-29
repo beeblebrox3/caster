@@ -115,6 +115,17 @@ $res = $caster->cast(['a' => 'pipe'], ['a' => '199']);
 
 The `PipeRule` will only return the same input.
 
+#### Function as custom  rule
+> new on version `0.1.0`
+
+```php
+$caster = new Caster();
+$caster->addCustomrule('pipe', function ($value) {return $value; });
+```
+
+Now you created the same pipe rule as before, but without the class.
+
 ## Changelog
+- `0.1.0` Add support functions as custom rules;
 - `0.0.2` Add custom rules support;
 
