@@ -4,6 +4,7 @@ namespace Beeblebrox3\Caster;
 
 use Beeblebrox3\Caster\Rules\IRule;
 use Beeblebrox3\Caster\Exceptions\RuleNotFound;
+use InvalidArgumentException;
 
 class Caster
 {
@@ -11,9 +12,13 @@ class Caster
 
     protected $customRules = [];
 
-    public function addCustomRule(string $ruleName, string $className) : self
+    public function addCustomRule(string $ruleName, $ruleBody) : self
     {
-        $this->customRules[$ruleName] = $className;
+        if (!is_string($ruleBody) && !\is_callable($ruleBody)) {
+            throw new InvalidArgumentException("$ruleBody must be string or callable.");
+        }
+
+        $this->customRules[$ruleName] = $ruleBody;
         return $this;
     }
 
@@ -53,7 +58,7 @@ class Caster
     {
         $rules = explode("|", $rules);
 
-        $res = null;
+        $res = $value;
         foreach ($rules as $rule) {
             $ruleArgs = explode(":", $rule);
             $ruleName = array_shift($ruleArgs);
@@ -66,10 +71,12 @@ class Caster
                 $ruleArgs = explode(",", $ruleArgs[0]);
             }
 
-            array_unshift($ruleArgs, $value);
+            array_unshift($ruleArgs, $res);
 
-            $ruleObject = $this->getRuleObject($ruleName);
-            $res = call_user_func_array([$ruleObject, "handle"], $ruleArgs);
+            $ruleObject = $this->getRuleBody($ruleName);
+            $ruleObject = is_callable($ruleObject) ? $ruleObject : [$ruleObject, "handle"];
+
+            $res = call_user_func_array($ruleObject, $ruleArgs);
         }
 
         return $res;
@@ -77,25 +84,31 @@ class Caster
 
     /**
      * @param string $ruleName
-     * @return IRule
+     * @return IRule|Callable
      * @throws RuleNotFound
      */
-    protected function getRuleObject(string $ruleName) : IRule
+    protected function getRuleBody(string $ruleName)
     {
         if (!isset($this->cachedRules[$ruleName])) {
-            $ruleQualifiedName = $this->getRuleClassName($ruleName);
+            $ruleAccessor = $this->getRuleAccessor($ruleName);
 
-            if (!class_exists($ruleQualifiedName)) {
-                throw new RuleNotFound($ruleName, $ruleQualifiedName);
+            if (is_callable($ruleAccessor)) {
+                $this->cachedRules[$ruleName] = $ruleAccessor;
+            } elseif (!class_exists($ruleAccessor)) {
+                throw new RuleNotFound($ruleName, $ruleAccessor);
+            } else {
+                $this->cachedRules[$ruleName] = new $ruleAccessor();
             }
-
-            $this->cachedRules[$ruleName] = new $ruleQualifiedName();
         }
 
         return $this->cachedRules[$ruleName];
     }
 
-    protected function getRuleClassName(string $ruleName) : string
+    /**
+     * @param string $ruleName
+     * @return string|callable
+     */
+    protected function getRuleAccessor(string $ruleName)
     {
         if (isset($this->customRules[$ruleName])) {
             return $this->customRules[$ruleName];

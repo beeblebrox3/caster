@@ -43,4 +43,12 @@ class LpadRuleTest extends TestCase
     {
         $this->object->handle('str', 2);
     }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testShouldGetExceptionWithInvalidLength()
+    {
+        $this->object->handle("", "a");
+    }
 }

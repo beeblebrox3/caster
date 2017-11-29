@@ -4,6 +4,7 @@ namespace src;
 
 use Beeblebrox3\Caster\Caster;
 use Beeblebrox3\Caster\Exceptions\RuleNotFoundException;
+use InvalidArgumentException;
 use Exception;
 use PHPUnit\Framework\TestCase;
 
@@ -106,6 +107,48 @@ class CasterTest extends TestCase
         $this->assertEquals(
             ['a' => 1],
             $this->object->cast(['a' => 'one'], ['a' => 'borboleta'])
+        );
+    }
+
+    public function testShouldAcceptCustomRuleCallable()
+    {
+        $this->object->addCustomRule("convert_x", function ($value) {
+            return "x";
+        });
+
+        $this->assertEquals(
+            ['a' => 'x'],
+            $this->object->cast(['a' => 'convert_x'], ['a' => 'borboleta'])
+        );
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testShouldThrowExceptionWithInvalidCustomRule()
+    {
+        $this->object->addCustomRule("invalid_rule", 1);
+    }
+
+    public function testShouldWorkWithMultipleRules()
+    {
+        $rule1 = function ($value) { return $value . 1; };
+        $rule2 = function ($value) { return $value . 2; };
+
+        $this->object->addCustomRule('add_1', $rule1);
+        $this->object->addCustomRule('add_2', $rule2);
+
+        $this->assertEquals(
+            ['a' => 'a12'],
+            $this->object->cast(['a' => 'string|add_1|add_2'], ['a' => 'a'])
+        );
+    }
+
+    public function testShouldFillWithNull()
+    {
+        $this->assertEquals(
+            ['a' => null, 'b' => null],
+            $this->object->cast(['a' => 'string', 'b' => 'integer'], [], true)
         );
     }
 }
