@@ -27,7 +27,7 @@ $input = [
 $caster = new Beeblebrox3\Caster\Caster();
 $res = $caster->cast($types, $input);
 
-// $res will be ['must_be_integer' => 0.9]
+// $res will be ['must_be_integer' => 0]
 
 ```
 
@@ -58,7 +58,7 @@ $types = [
     // string up to 60 characters
     'a' => 'string:60',
 
-    // will cast to float and then round with precision of two and specifying the mode in which rounding occurs
+    // will cast to float and then round with precision of two specifying the mode in which rounding occurs
     // (see https://php.net/round for details)
     'b' => 'float:2,' . PHP_ROUND_HALF_DOWN,
 ];
@@ -120,7 +120,7 @@ The `PipeRule` will only return the same input.
 
 ```php
 $caster = new Caster();
-$caster->addCustomrule('pipe', function ($value) {return $value; });
+$caster->addCustomrule('pipe', function ($value) { return $value; });
 ```
 
 Now you created the same pipe rule as before, but without the class.
