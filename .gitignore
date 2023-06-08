@@ -2,3 +2,5 @@ vendor/
 coverage-report/
 .idea/
 .vscode/
+html-coverage/
+coverage.*

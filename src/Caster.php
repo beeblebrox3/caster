@@ -2,20 +2,22 @@
 
 namespace Beeblebrox3\Caster;
 
-use Beeblebrox3\Caster\Rules\IRule;
+use Beeblebrox3\Caster\Contracts\Rule;
 use Beeblebrox3\Caster\Exceptions\RuleNotFound;
 use InvalidArgumentException;
 
+use function is_callable;
+
 class Caster
 {
-    protected $cachedRules = [];
+    protected array $cachedRules = [];
 
-    protected $customRules = [];
+    protected array $customRules = [];
 
-    public function addCustomRule(string $ruleName, $ruleBody) : self
+    public function addCustomRule(string $ruleName, $ruleBody): self
     {
-        if (!is_string($ruleBody) && !\is_callable($ruleBody)) {
-            throw new InvalidArgumentException("$ruleBody must be string or callable.");
+        if (!is_string($ruleBody) && !is_callable($ruleBody)) {
+            throw new InvalidArgumentException('$ruleBody must be string or callable.');
         }
 
         $this->customRules[$ruleName] = $ruleBody;
@@ -23,13 +25,9 @@ class Caster
     }
 
     /**
-     * @param array $types
-     * @param array $data
-     * @param bool $fillWithNull
-     * @return array
      * @throws RuleNotFound
      */
-    public function cast(array $types, array $data, bool $fillWithNull = false) : array
+    public function cast(array $types, array $data, bool $fillWithNull = false): array
     {
         $res = dot([]);
         $data = dot($data);
@@ -49,12 +47,9 @@ class Caster
     }
 
     /**
-     * @param string $rules
-     * @param $value
-     * @return mixed|null
      * @throws RuleNotFound
      */
-    protected function handleValue(string $rules, $value)
+    protected function handleValue(string $rules, $value): mixed
     {
         $rules = explode("|", $rules);
 
@@ -83,11 +78,9 @@ class Caster
     }
 
     /**
-     * @param string $ruleName
-     * @return IRule|Callable
      * @throws RuleNotFound
      */
-    protected function getRuleBody(string $ruleName)
+    protected function getRuleBody(string $ruleName): Rule | callable
     {
         if (!isset($this->cachedRules[$ruleName])) {
             $ruleAccessor = $this->getRuleAccessor($ruleName);
@@ -104,11 +97,7 @@ class Caster
         return $this->cachedRules[$ruleName];
     }
 
-    /**
-     * @param string $ruleName
-     * @return string|callable
-     */
-    protected function getRuleAccessor(string $ruleName)
+    protected function getRuleAccessor(string $ruleName): string | callable
     {
         if (isset($this->customRules[$ruleName])) {
             return $this->customRules[$ruleName];

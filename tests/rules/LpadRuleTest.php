@@ -1,17 +1,16 @@
 <?php
 
-namespace Beeblebrox3\Caster\Rules;
+namespace rules;
 
-
-use Exception;
+use Beeblebrox3\Caster\Rules\LpadRule;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class LpadRuleTest extends TestCase
 {
-    /** @var LpadRule */
-    private $object;
+    private LpadRule $object;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->object = new LpadRule();
     }
@@ -28,27 +27,21 @@ class LpadRuleTest extends TestCase
         }
     }
 
-    /**
-     * @expectedException Exception
-     */
     public function testShouldThrowExceptionWithoutLength()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->object->handle('str');
     }
 
-    /**
-     * @expectedException Exception
-     */
     public function testShouldThrowExceptionWithoutStr()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->object->handle('str', 2);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testShouldGetExceptionWithInvalidLength()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->object->handle("", "a");
     }
 }

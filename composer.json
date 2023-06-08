@@ -17,15 +17,15 @@
     },
     "autoload-dev": {
         "classmap": [
-            "tests/OneCustomRule.php"
+            "tests/"
         ]
     },
     "require": {
-        "php": ">= 7.0",
-        "adbario/php-dot-notation": "^2.0"
+        "php": ">= 8.1",
+        "adbario/php-dot-notation": "^3.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.4"
+        "phpunit/phpunit": "^10.2"
     },
     "scripts": {
         "test": "./vendor/bin/phpunit",

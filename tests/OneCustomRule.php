@@ -1,6 +1,8 @@
 <?php
 
-class OneCustomRule implements \Beeblebrox3\Caster\Rules\IRule
+use Beeblebrox3\Caster\Contracts\Rule;
+
+class OneCustomRule implements Rule
 {
     public function handle($value, ...$args)
     {

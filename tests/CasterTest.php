@@ -1,19 +1,13 @@
 <?php
 
-namespace src;
-
 use Beeblebrox3\Caster\Caster;
-use Beeblebrox3\Caster\Exceptions\RuleNotFoundException;
-use InvalidArgumentException;
-use Exception;
 use PHPUnit\Framework\TestCase;
 
 class CasterTest extends TestCase
 {
-    /** @var Caster */
-    protected $object;
+    private Caster $object;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->object = new Caster();
     }
@@ -92,11 +86,9 @@ class CasterTest extends TestCase
         $this->assertEquals($expected, $this->object->cast($types, $input));
     }
 
-    /**
-     * @expectedException Exception
-     */
     public function testShouldThrowExceptionWithInvalidRule()
     {
+        $this->expectException(Exception::class);
         $this->object->cast(['a' => 'InvalidRule'], ['a' => 1]);
     }
 
@@ -122,11 +114,9 @@ class CasterTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testShouldThrowExceptionWithInvalidCustomRule()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->object->addCustomRule("invalid_rule", 1);
     }
 

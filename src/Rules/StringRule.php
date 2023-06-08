@@ -4,12 +4,7 @@ namespace Beeblebrox3\Caster\Rules;
 
 class StringRule extends AbstractRule
 {
-    /**
-     * @param mixed $value
-     * @param array ...$args
-     * @return bool|string
-     */
-    public function handle($value, ...$args)
+    public function handle($value, ...$args): string | null
     {
         if (is_null($value)) {
             return null;

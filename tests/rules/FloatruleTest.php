@@ -1,16 +1,15 @@
 <?php
 
-namespace Beeblebrox3\Caster\Rules;
+namespace rules;
 
-
+use Beeblebrox3\Caster\Rules\FloatRule;
 use PHPUnit\Framework\TestCase;
 
 class FloatruleTest extends TestCase
 {
-    /** @var FloatRule */
-    private $object;
+    private FloatRule $object;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->object = new FloatRule();
     }
@@ -40,7 +39,7 @@ class FloatruleTest extends TestCase
 
         $this->assertEquals(
             2.4,
-            $this->object->handle('2.45', 1,  PHP_ROUND_HALF_DOWN)
+            $this->object->handle('2.45', 1, PHP_ROUND_HALF_DOWN)
         );
     }
 

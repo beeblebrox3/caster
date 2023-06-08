@@ -1,16 +1,15 @@
 <?php
 
-namespace Beeblebrox3\Caster\Rules;
+namespace rules;
 
-use InvalidArgumentException;
+use Beeblebrox3\Caster\Rules\DateFormatRule;
 use PHPUnit\Framework\TestCase;
 
 class DateFormatRuleTest extends TestCase
 {
-    /** @var DateFormatRule */
-    private $object;
+    private DateFormatRule $object;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->object = new DateFormatRule();
     }
@@ -34,11 +33,9 @@ class DateFormatRuleTest extends TestCase
         $this->assertNull($this->object->handle('invalid date', 'Y'));
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testShouldThrowExceptionWithoutFormat()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->object->handle('2017-01-01 00:00:00');
     }
 

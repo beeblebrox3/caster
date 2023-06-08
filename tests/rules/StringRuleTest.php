@@ -1,15 +1,15 @@
 <?php
 
-namespace Beeblebrox3\Caster\Rules;
+namespace rules;
 
+use Beeblebrox3\Caster\Rules\StringRule;
 use PHPUnit\Framework\TestCase;
 
 class StringRuleTest extends TestCase
 {
-    /** @var StringRule */
-    private $object;
+    private StringRule $object;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->object = new StringRule();
     }

@@ -4,15 +4,10 @@ namespace Beeblebrox3\Caster\Exceptions;
 
 use Exception;
 
-class RuleNotFound extends Exception {
-    protected $ruleName;
-    protected $tried;
-
-    public function __construct(string $ruleName, string $tried = '')
+class RuleNotFound extends Exception
+{
+    public function __construct(protected string $ruleName, protected string $tried = '')
     {
-        $this->ruleName = $ruleName;
-        $this->tried = $tried;
-
         parent::__construct("Rule $ruleName not found (tried $tried)");
     }
 }

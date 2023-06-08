@@ -4,7 +4,7 @@ namespace Beeblebrox3\Caster\Rules;
 
 class BoolRule extends AbstractRule
 {
-    public function handle($value, ...$args)
+    public function handle($value, ...$args): bool | null
     {
         $nullIfEmmpty = (bool) $this->getArg($args, 0);
 

@@ -4,7 +4,7 @@ namespace Beeblebrox3\Caster\Rules;
 
 class FloatRule extends AbstractRule
 {
-    public function handle($value, ...$args)
+    public function handle($value, ...$args): float | null
     {
         if (is_null($value)) {
             return null;
@@ -15,7 +15,7 @@ class FloatRule extends AbstractRule
 
         $res = floatval($value);
 
-        if ($precision !== null && is_numeric($precision)) {
+        if (is_numeric($precision)) {
             $mode = $this->isAValidMode($mode) ? $mode : PHP_ROUND_HALF_UP;
 
             $res = round($res, intval($precision), $mode);
@@ -24,7 +24,7 @@ class FloatRule extends AbstractRule
         return $res;
     }
 
-    final private function isAValidMode($mode) : bool
+    private function isAValidMode($mode): bool
     {
         $availableModes = [
             PHP_ROUND_HALF_UP,
