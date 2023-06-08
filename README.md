@@ -6,7 +6,7 @@
 
 # Caster
 
-PHP Library to cast arrays
+PHP Library to cast arrays of values
 
 ## Requirements
 
@@ -32,7 +32,7 @@ $res = $caster->cast($types, $input);
 ```
 
 The `$types` parameter specifies how the `$input` values should be transformed.
-You do this specifying an array of rules to be applyied. Rules are identified by an string.
+You do this specifying an array of rules to be applyied. A rule is identified by a string.
 
 ```php
 $types = [
@@ -80,15 +80,15 @@ $res = $caster->cast(
 > to pass options you don't use their names, but pass the values in the displayed order. Example: ` 'a' => 'bool|1'`.
 > arguments with `*` are mandatory
 
-| Rule        | Arguments                                                                                  | Details                                                                                                      |
-| ----------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| bool        | `nullIfEmpty`*                                                                             | cast to boolean. If `nullIfEmpty` is `1`, cast empty strings and null to null, else cast to `false`          |
-| date_format | `output format`* <br /> `input format`                                                     | format the given date to an specific format. You can also specify the format of the input date               |
-| float       | `precision` <br /> `round mode`                                                            | cast to float and optionally round the value using `precision` and `round mode` (using the `round` function) |
-| integer     |                                                                                            | cast to integer                                                                                              |
-| lpad        | `length` * <br /> `str` *                                                                  | pad the string on the left site to `length` length using `str` to fill                                       |
-| rpad        | `length` * <br /> `str` *                                                                  | pad the string on the right site to `length` length using `str` to fill                                      |
-| string      | `max length`                                                                               | casto so string, optionally limiting the string size to `max length` (using `substr`)                        |
+| Rule        | Arguments                              | Details                                                                                                      |
+|-------------|----------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| bool        | `nullIfEmpty`*                         | cast to boolean. If `nullIfEmpty` is `1`, cast empty strings and null to null, else cast to `false`          |
+| date_format | `output format`* <br /> `input format` | format the given date to an specific format. You can also specify the format of the input date               |
+| float       | `precision` <br /> `round mode`        | cast to float and optionally round the value using `precision` and `round mode` (using the `round` function) |
+| integer     |                                        | cast to integer                                                                                              |
+| lpad        | `length` * <br /> `str` *              | pad the string on the left site to `length` length using `str` to fill                                       |
+| rpad        | `length` * <br /> `str` *              | pad the string on the right site to `length` length using `str` to fill                                      |
+| string      | `max length`                           | casto so string, optionally limiting the string size to `max length` (using `substr`)                        |
 
 
 ### Custom Rules

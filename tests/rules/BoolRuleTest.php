@@ -1,16 +1,15 @@
 <?php
 
-namespace Beeblebrox3\Caster\Rules;
+namespace rules;
 
-
+use Beeblebrox3\Caster\Rules\BoolRule;
 use PHPUnit\Framework\TestCase;
 
 class BoolRuleTest extends TestCase
 {
-    /** @var BoolRule */
-    private $object;
+    private BoolRule $object;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->object = new BoolRule();
     }
@@ -44,7 +43,7 @@ class BoolRuleTest extends TestCase
 
     public function testShouldHandleNulls()
     {
-        // the second parameter allow specify how to handle empty values ('' and null).
+        // the second parameter allows to specify how to handle empty values ('' and null).
         // If enabled, will return null. Else, will return false
 
         $this->assertFalse($this->object->handle(null));

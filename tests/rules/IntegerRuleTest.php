@@ -1,15 +1,15 @@
 <?php
 
-namespace Beeblebrox3\Caster\Rules;
+namespace rules;
 
+use Beeblebrox3\Caster\Rules\IntegerRule;
 use PHPUnit\Framework\TestCase;
 
 class IntegerRuleTest extends TestCase
 {
-    /** @var IntegerRule */
-    private $object;
+    private IntegerRule $object;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->object = new IntegerRule();
     }

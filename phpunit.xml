@@ -1,23 +1,37 @@
-<phpunit backupGlobals="false"
-         backupStaticAttributes="false"
-         bootstrap="tests/bootstrap.php"
-         cacheTokens="true"
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="vendor/autoload.php"
          colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="false"
-         syntaxCheck="true"
-         verbose="true">
+         failOnDeprecation="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
+>
     <testsuites>
-        <testsuite name="PHPUnit">
-            <directory>tests</directory>
+        <testsuite name="Package Test Suite">
+            <directory suffix="Test.php">./tests/</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist>
-            <directory>src</directory>
-        </whitelist>
-    </filter>
+
+    <source>
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+        <exclude>
+            <directory>./vendor</directory>
+        </exclude>
+    </source>
+
+
+    <coverage includeUncoveredFiles="true"
+              pathCoverage="false"
+              ignoreDeprecatedCodeUnits="true"
+              disableCodeCoverageIgnore="true">
+        <report>
+            <clover outputFile="coverage.xml"/>
+            <html outputDirectory="html-coverage" lowUpperBound="50" highLowerBound="90"/>
+        </report>
+    </coverage>
+    <php>
+        <ini name="error_reporting" value="-1"/>
+        <ini name="xdebug.mode" value="coverage"/>
+        <env name="XDEBUG_MODE" value="coverage"/>
+    </php>
 </phpunit>

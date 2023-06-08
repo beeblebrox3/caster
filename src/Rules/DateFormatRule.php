@@ -8,15 +8,12 @@ use InvalidArgumentException;
 
 class DateFormatRule extends AbstractRule
 {
-    private $defaultFormat = 'Y-m-d H:i:s';
+    private string $defaultFormat = 'Y-m-d H:i:s';
 
     /**
-     * @param mixed $value
-     * @param array ...$args
-     * @return string
      * @throws InvalidArgumentException
      */
-    public function handle($value, ...$args)
+    public function handle($value, ...$args): string | null
     {
         $format = $this->getArg($args, 0);
         $inputFormat = $this->getArg($args, 1);

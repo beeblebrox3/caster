@@ -1,17 +1,16 @@
 <?php
 
-namespace Beeblebrox3\Caster\Rules;
+namespace rules;
 
-
-use Exception;
+use Beeblebrox3\Caster\Rules\RpadRule;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class RpadRuleTest extends TestCase
 {
-    /** @var RpadRule */
-    private $object;
+    private RpadRule $object;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->object = new RpadRule();
     }
@@ -28,19 +27,15 @@ class RpadRuleTest extends TestCase
         }
     }
 
-    /**
-     * @expectedException Exception
-     */
     public function testShouldThrowExceptionWithoutLength()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->object->handle('str');
     }
 
-    /**
-     * @expectedException Exception
-     */
     public function testShouldThrowExceptionWithoutStr()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->object->handle('str', 2);
     }
 }

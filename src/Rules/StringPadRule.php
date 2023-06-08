@@ -6,9 +6,9 @@ use InvalidArgumentException;
 
 abstract class StringPadRule extends AbstractRule
 {
-    abstract protected function getType() : string;
+    abstract protected function getType(): string;
 
-    protected function getArgs(array $args) : array
+    protected function getArgs(array $args): array
     {
         $length = $this->getArg($args, 0);
         $data = $this->getArg($args, 1);
@@ -28,7 +28,7 @@ abstract class StringPadRule extends AbstractRule
         return [$length, $data, $this->getType()];
     }
 
-    public function handle($value, ...$args)
+    public function handle($value, ...$args): string | null
     {
         list($length, $data, $type) = $this->getArgs($args);
 
