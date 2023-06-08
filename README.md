@@ -1,8 +1,7 @@
-
-[![Code Coverage](https://scrutinizer-ci.com/g/beeblebrox3/caster/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/beeblebrox3/caster/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/beeblebrox3/caster/badges/build.png?b=master)](https://scrutinizer-ci.com/g/beeblebrox3/caster/build-status/master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/beeblebrox3/caster/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/beeblebrox3/caster/?branch=master)
-[![Inline docs](http://inch-ci.org/github/beeblebrox3/caster.svg?branch=master)](http://inch-ci.org/github/beeblebrox3/caster)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=beeblebrox3_caster&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=beeblebrox3_caster)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=beeblebrox3_caster&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=beeblebrox3_caster)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=beeblebrox3_caster&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=beeblebrox3_caster)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=beeblebrox3_caster&metric=coverage)](https://sonarcloud.io/summary/new_code?id=beeblebrox3_caster)
 
 # Caster
 

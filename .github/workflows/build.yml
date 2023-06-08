@@ -25,11 +25,14 @@ jobs:
           coverage: xdebug
       - run: composer install --prefer-source --no-interaction --dev
       - run: composer test
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: coverage-report
           path: coverage.xml
+          retention-days: 1
   sonarcloud:
+    name: Sonar
+    needs: tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -41,6 +44,9 @@ jobs:
           php-version: '8.1'
           tools: composer:latest
           coverage: xdebug
+      - uses: actions/download-artifact@v3
+        with:
+          name: coverage-report
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
